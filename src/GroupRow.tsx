@@ -22,7 +22,7 @@ function GroupedRow<R, SR>({
   const idx = viewportColumns[0].key === SELECT_COLUMN_KEY ? level + 1 : level;
 
   function selectGroup() {
-    eventBus.dispatch('SELECT_CELL', { rowIdx, idx: -1 });
+    eventBus.dispatch('SelectCell', { rowIdx, idx: -1 });
   }
 
   return (
@@ -34,6 +34,7 @@ function GroupedRow<R, SR>({
         'rdg-row',
         'rdg-group-row',
         `rdg-row-${rowIdx % 2 === 0 ? 'even' : 'odd'}`, {
+          'rdg-row-selected': isRowSelected,
           'rdg-group-row-selected': selectedCellIdx === -1 // Select row if there is no selected cell
         })}
       onClick={selectGroup}
