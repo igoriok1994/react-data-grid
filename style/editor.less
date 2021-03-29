@@ -2,11 +2,8 @@
   position: absolute;
 }
 
-.rdg-editor-container2 {
-  display: contents;
-}
-
-.rdg-text-editor {
+.rdg-text-editor,
+.rdg-select-editor {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -17,18 +14,13 @@
   padding: 1px 7px 0 7px;
   margin: -1px 0 0 -1px;
   border: 2px solid #ccc;
-  color: var(--color);
-  background-color: var(--background-color);
+  background-color: #fff;
 
   font-size: 14px;
   line-height: 1.2;
+  .placeholder-color(#999);
 
   &:focus {
-    border-color: var(--selection-color);
-  }
-
-  &::placeholder {
-    color: #999;
-    opacity: 1;
+    border-color: #66afe9;
   }
 }

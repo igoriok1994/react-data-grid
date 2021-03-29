@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { createPortal } from 'react-dom';
 import faker from 'faker';
+import { AutoSizer } from 'react-virtualized';
 import { ContextMenu, MenuItem, SubMenu, ContextMenuTrigger } from 'react-contextmenu';
 
 import DataGrid, { Column, Row as GridRow, RowRendererProps } from '../../src';
@@ -74,13 +75,18 @@ export default function ContextMenuStory() {
 
   return (
     <>
-      <DataGrid
-        rowKey="id"
-        columns={columns}
-        rows={rows}
-        rowRenderer={RowRenderer}
-        className="fill-grid"
-      />
+      <AutoSizer>
+        {({ height, width }) => (
+          <DataGrid
+            rowKey="id"
+            columns={columns}
+            rows={rows}
+            width={width}
+            height={height}
+            rowRenderer={RowRenderer}
+          />
+        )}
+      </AutoSizer>
       {createPortal(
         <ContextMenu id="grid-context-menu">
           <MenuItem onClick={onRowDelete}>Delete Row</MenuItem>

@@ -29,7 +29,7 @@ export default function SortableHeaderCell<R, SR>({
   sortDirection = sortColumn === column.key && sortDirection || 'NONE';
   function onClick() {
     if (!onSort) return;
-    const { sortDescendingFirst } = column;
+    const sortDescendingFirst = column.sortDescendingFirst || false;
     let direction: SortDirection;
     switch (sortDirection) {
       case 'ASC':

@@ -9,6 +9,7 @@ type SharedCellRendererProps<R, SR> = Pick<CellRendererProps<R, SR>,
 | 'rowIdx'
 | 'row'
 | 'column'
+| 'lastFrozenColumnIndex'
 >;
 
 interface EditCellRendererProps<R, SR> extends SharedCellRendererProps<R, SR>, Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'children'> {
@@ -20,6 +21,7 @@ interface EditCellRendererProps<R, SR> extends SharedCellRendererProps<R, SR>, O
 function EditCell<R, SR>({
   className,
   column,
+  lastFrozenColumnIndex,
   row,
   rowIdx,
   editorPortalTarget,
@@ -42,7 +44,7 @@ function EditCell<R, SR>({
     'rdg-cell',
     {
       'rdg-cell-frozen': column.frozen,
-      'rdg-cell-frozen-last': column.isLastFrozenColumn
+      'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex
     },
     'rdg-cell-selected',
     'rdg-cell-editing',
@@ -52,7 +54,7 @@ function EditCell<R, SR>({
 
   function getCellContent() {
     if (dimensions === null) return;
-    const { scrollTop: docTop, scrollLeft: docLeft } = document.scrollingElement ?? document.documentElement;
+    const { scrollTop: docTop, scrollLeft: docLeft } = document.scrollingElement || document.documentElement;
     const { left, top } = dimensions;
     const gridLeft = left + docLeft;
     const gridTop = top + docTop;
@@ -111,4 +113,4 @@ function EditCell<R, SR>({
   );
 }
 
-export default forwardRef(EditCell) as <R, SR = unknown>(props: EditCellRendererProps<R, SR> & React.RefAttributes<HTMLDivElement>) => JSX.Element;
+export default forwardRef(EditCell) as <R, SR = unknown>(props: EditCellRendererProps<R, SR> & { ref?: React.Ref<HTMLDivElement> }) => JSX.Element;

@@ -11,6 +11,7 @@ describe('HeaderRow', () => {
     rowKey: 'id',
     rows: [],
     columns: helpers.columns,
+    lastFrozenColumnIndex: -1,
     onColumnResize() { },
     onSort: jest.fn(),
     sortDirection: 'NONE',
@@ -72,6 +73,7 @@ describe('HeaderRow', () => {
       rowKey: 'id',
       rows: [],
       columns: helpers.columns,
+      lastFrozenColumnIndex: 1,
       onSort: jest.fn(),
       allRowsSelected: false,
       onColumnResize: jest.fn()

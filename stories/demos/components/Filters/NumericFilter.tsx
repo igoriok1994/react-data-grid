@@ -2,15 +2,15 @@ import React from 'react';
 import { Column, FilterRendererProps } from '../../../../src';
 
 enum RuleType {
-  number = 1,
-  range = 2,
-  greaterThan = 3,
-  lessThan = 4
+  Number = 1,
+  Range = 2,
+  GreaterThan = 3,
+  LessThan = 4
 }
 
 type Rule =
-  | { type: RuleType.range; begin: number; end: number }
-  | { type: RuleType.greaterThan | RuleType.lessThan | RuleType.number; value: number };
+  | { type: RuleType.Range; begin: number; end: number }
+  | { type: RuleType.GreaterThan | RuleType.LessThan | RuleType.Number; value: number };
 
 interface ChangeEvent<R, SR> {
   filterTerm: Rule[] | null;
@@ -23,7 +23,7 @@ export function NumericFilter<R, SR>({ value, column, onChange }: FilterRenderer
   /** Validates the input */
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     const result = /[><,0-9-]/.test(event.key);
-    if (!result) {
+    if (result === false) {
       event.preventDefault();
     }
   }
@@ -67,22 +67,22 @@ function filterValues<R>(row: R, columnFilter: { filterTerm: { [key in string]: 
     const rule = columnFilter.filterTerm[ruleKey];
 
     switch (rule.type) {
-      case RuleType.number:
+      case RuleType.Number:
         if (rule.value === value) {
           return true;
         }
         break;
-      case RuleType.greaterThan:
+      case RuleType.GreaterThan:
         if (rule.value <= value) {
           return true;
         }
         break;
-      case RuleType.lessThan:
+      case RuleType.LessThan:
         if (rule.value >= value) {
           return true;
         }
         break;
-      case RuleType.range:
+      case RuleType.Range:
         if (rule.begin <= value && rule.end >= value) {
           return true;
         }
@@ -107,23 +107,23 @@ export function getRules(value: string): Rule[] {
     if (dashIdx > 0) {
       const begin = parseInt(str.slice(0, dashIdx), 10);
       const end = parseInt(str.slice(dashIdx + 1), 10);
-      return { type: RuleType.range, begin, end };
+      return { type: RuleType.Range, begin, end };
     }
 
     // handle greater then
     if (str.includes('>')) {
       const begin = parseInt(str.slice(str.indexOf('>') + 1), 10);
-      return { type: RuleType.greaterThan, value: begin };
+      return { type: RuleType.GreaterThan, value: begin };
     }
 
     // handle less then
     if (str.includes('<')) {
       const end = parseInt(str.slice(str.indexOf('<') + 1), 10);
-      return { type: RuleType.lessThan, value: end };
+      return { type: RuleType.LessThan, value: end };
     }
 
     // handle normal values
     const numericValue = parseInt(str, 10);
-    return { type: RuleType.number, value: numericValue };
+    return { type: RuleType.Number, value: numericValue };
   });
 }

@@ -1,9 +1,8 @@
 import { Position, SelectRowEvent } from './types';
 
 interface EventMap {
-  SelectCell: (position: Position, openEditor?: boolean) => void;
-  SelectRow: (event: SelectRowEvent) => void;
-  ToggleGroup: (id: unknown) => void;
+  SELECT_CELL: (position: Position, openEditor?: boolean) => void;
+  SELECT_ROW: (event: SelectRowEvent) => void;
 }
 
 type EventName = keyof EventMap;

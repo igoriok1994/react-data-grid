@@ -3,7 +3,10 @@ import clsx from 'clsx';
 
 import { CellRendererProps } from './types';
 
-type SharedCellRendererProps<R, SR> = Pick<CellRendererProps<R, SR>, 'column'>;
+type SharedCellRendererProps<R, SR> = Pick<CellRendererProps<R, SR>,
+  | 'lastFrozenColumnIndex'
+  | 'column'
+>;
 
 interface SummaryCellProps<R, SR> extends SharedCellRendererProps<R, SR> {
   row: SR;
@@ -11,6 +14,7 @@ interface SummaryCellProps<R, SR> extends SharedCellRendererProps<R, SR> {
 
 function SummaryCell<R, SR>({
   column,
+  lastFrozenColumnIndex,
   row
 }: SummaryCellProps<R, SR>) {
   const { summaryFormatter: SummaryFormatter, width, left, summaryCellClass } = column;
@@ -18,7 +22,7 @@ function SummaryCell<R, SR>({
     'rdg-cell',
     {
       'rdg-cell-frozen': column.frozen,
-      'rdg-cell-frozen-last': column.isLastFrozenColumn
+      'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex
     },
     typeof summaryCellClass === 'function' ? summaryCellClass(row) : summaryCellClass
   );

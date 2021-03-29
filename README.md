@@ -1,7 +1,7 @@
 # react-data-grid [![npm-badge]][npm-url] [![ci-badge]][ci-url]
 
-[npm-badge]: https://img.shields.io/npm/v/react-data-grid-igvi
-[npm-url]: https://www.npmjs.com/package/react-data-grid-igvi
+[npm-badge]: https://img.shields.io/npm/v/react-data-grid
+[npm-url]: https://www.npmjs.com/package/react-data-grid
 [ci-badge]: https://github.com/adazzle/react-data-grid/workflows/CI/badge.svg
 [ci-url]: https://github.com/adazzle/react-data-grid/actions?query=workflow%3ACI
 
@@ -11,7 +11,9 @@
 npm install react-data-grid-igvi
 ```
 
-This grid component transpiled to ES2015 (fork of original react-data-grid)
+## Note
+
+This grid traspiled to ES2015
 
 ## Usage
 

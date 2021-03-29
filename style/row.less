@@ -1,24 +1,25 @@
 .rdg-row {
   contain: strict;
-  contain: size layout style paint;
   display: flex;
   position: absolute;
   left: 0;
   width: var(--row-width);
   height: var(--row-height);
   line-height: var(--row-height);
-  background-color: var(--background-color);
+  @bg: #fff;
+  background-color: @bg;
 
   &:hover {
-    background-color: var(--row-hover-background-color);
+    background-color: darken(@bg, 4%);
   }
 }
 
 .rdg-row-selected {
-  background-color: var(--row-selected-background-color);
+  @bg: #dbecfa;
+  background-color: @bg;
 
   &:hover {
-    background-color: var(--row-selected-hover-background-color);
+    background-color: darken(@bg, 4%);
   }
 }
 
@@ -28,6 +29,6 @@
   z-index: 3;
 
   > .rdg-cell {
-    border-top: 2px solid var(--summary-border-color);
+    border-top: 2px solid darken(@borderColor, 20%);
   }
 }

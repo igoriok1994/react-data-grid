@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import clsx from 'clsx';
-
-import { useFocusRef } from '../hooks';
 
 type SharedInputProps = Pick<React.InputHTMLAttributes<HTMLInputElement>,
   | 'disabled'
   | 'tabIndex'
-  | 'onClick'
   | 'aria-label'
   | 'aria-labelledby'
 >;
@@ -22,12 +19,16 @@ export function SelectCellFormatter({
   tabIndex,
   isCellSelected,
   disabled,
-  onClick,
   onChange,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy
 }: SelectCellFormatterProps) {
-  const inputRef = useFocusRef<HTMLInputElement>(isCellSelected);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useLayoutEffect(() => {
+    if (!isCellSelected) return;
+    inputRef.current?.focus();
+  }, [isCellSelected]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     onChange(e.target.checked, (e.nativeEvent as MouseEvent).shiftKey);
@@ -43,9 +44,8 @@ export function SelectCellFormatter({
         type="checkbox"
         className="rdg-checkbox-input"
         disabled={disabled}
-        checked={value}
         onChange={handleChange}
-        onClick={onClick}
+        checked={value}
       />
       <div className="rdg-checkbox" />
     </label>

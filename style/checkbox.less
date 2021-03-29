@@ -8,15 +8,14 @@
   right: 0;
   bottom: 0;
   left: 0;
-  margin-right: 1px; // align checkbox in row group cell
 }
 
 .rdg-checkbox-label-disabled {
   cursor: default;
 
   .rdg-checkbox {
-    border-color: var(--checkbox-disabled-border-color);
-    background-color: var(--checkbox-disabled-background-color);
+    border-color: #ccc;
+    background: #ddd;
   }
 }
 
@@ -30,15 +29,15 @@
   content: '';
   width: 20px;
   height: 20px;
-  border: 2px solid var(--border-color);
-  background-color: var(--background-color);
+  border: 2px solid #ddd;
+  background: #fff;
 
   .rdg-checkbox-input:checked + & {
-    background-color: var(--checkbox-color);
-    box-shadow: inset 0px 0px 0px 4px var(--background-color);
+    background: #005295;
+    box-shadow: inset 0px 0px 0px 4px #fff;
   }
 
   .rdg-checkbox-input:focus + & {
-    border-color: var(--checkbox-focus-color);
+    border-color: lighten(#005295, 40%);
   }
 }

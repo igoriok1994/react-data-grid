@@ -2,7 +2,6 @@ import 'core-js/stable';
 import '../style/index.less';
 import './index.less';
 import React from 'react';
-import { ResizeObserver as Polyfill } from '@juggle/resize-observer';
 import { storiesOf } from '@storybook/react';
 
 import AllFeatures from './demos/AllFeatures';
@@ -17,13 +16,7 @@ import CellNavigation from './demos/CellNavigation';
 import HeaderFilters from './demos/HeaderFilters';
 import ColumnsReordering from './demos/ColumnsReordering';
 import RowsReordering from './demos/RowsReordering';
-import Grouping from './demos/Grouping';
-
-// @ts-expect-error
-if (typeof ResizeObserver === 'undefined') {
-  // @ts-expect-error
-  window.ResizeObserver = Polyfill;
-}
+import LegacyGrouping from './demos/LegacyGrouping';
 
 storiesOf('Demos', module)
   .add('Common Features', () => <CommonFeatures />)
@@ -38,4 +31,4 @@ storiesOf('Demos', module)
   .add('Header Filters', () => <HeaderFilters />)
   .add('Columns Reordering', () => <ColumnsReordering />)
   .add('Rows Reordering', () => <RowsReordering />)
-  .add('Grouping', () => <Grouping />);
+  .add('Legacy Grouping', () => <LegacyGrouping />);

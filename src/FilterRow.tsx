@@ -10,11 +10,13 @@ type SharedDataGridProps<R, SR> = Pick<DataGridProps<R, never, SR>,
 >;
 
 export interface FilterRowProps<R, SR> extends SharedDataGridProps<R, SR> {
+  lastFrozenColumnIndex: number;
   columns: readonly CalculatedColumn<R, SR>[];
 }
 
 function FilterRow<R, SR>({
   columns,
+  lastFrozenColumnIndex,
   filters,
   onFiltersChange
 }: FilterRowProps<R, SR>) {
@@ -35,7 +37,7 @@ function FilterRow<R, SR>({
 
         const className = clsx('rdg-cell', {
           'rdg-cell-frozen': column.frozen,
-          'rdg-cell-frozen-last': column.isLastFrozenColumn
+          'rdg-cell-frozen-last': column.idx === lastFrozenColumnIndex
         });
         const style: React.CSSProperties = {
           width: column.width,

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useFocusRef } from '../../../../src/hooks';
+import React, { useRef, useLayoutEffect } from 'react';
 
 export interface ChildRowDeleteButtonProps {
   isCellSelected: boolean;
@@ -8,7 +7,11 @@ export interface ChildRowDeleteButtonProps {
 }
 
 export function ChildRowDeleteButton({ isCellSelected, onDeleteSubRow, isDeleteSubRowEnabled }: ChildRowDeleteButtonProps) {
-  const iconRef = useFocusRef<HTMLSpanElement>(isCellSelected);
+  const iconRef = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    if (!isCellSelected) return;
+    iconRef.current?.focus({ preventScroll: true });
+  }, [isCellSelected]);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLSpanElement>) {
     if (e.key === 'Enter') {
